@@ -49,6 +49,16 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify(payload),
     });
+    export default async function handler(req, res) {
+  try {
+    // Your existing logic here
+  } catch (error) {
+    // Log error stack for debugging
+    console.error('API /chat error:', error);
+    // Respond with error info for client and logs
+    res.status(500).json({ error: error.message || 'Internal Server Error' });
+  }
+}
 
     // Passthrough: same status, same content-type, exact body
     const upstreamCT = upstream.headers.get('content-type') || 'text/plain; charset=utf-8';
