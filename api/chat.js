@@ -59,7 +59,11 @@ export default async function handler(req, res) {
     res.status(500).json({ error: error.message || 'Internal Server Error' });
   }
 }
-
+const webhookUrl = process.env.N8N_WEBHOOK_URL;
+if (!webhookUrl) {
+  console.error('Missing N8N_WEBHOOK_URL env variable');
+  return res.status(500).json({ error: 'Missing N8N_WEBHOOK_URL configuration' });
+}
     // Passthrough: same status, same content-type, exact body
     const upstreamCT = upstream.headers.get('content-type') || 'text/plain; charset=utf-8';
     const text = await upstream.text();
